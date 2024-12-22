@@ -1,18 +1,42 @@
 <script lang="ts">
-    import heroImage from '$assets/hero.png';
+	import heroImage from '$assets/hero.png';
 </script>
 
 <section class="default-margin hero">
 	<div class="hero-text">
 		<h1>Book Nest</h1>
 		<h3>Your personal book library.</h3>
-        <h4 class="mt-l">
-            Create your very own digital library where you can keep track of every book you own, read and love.
-        </h4>
-        <h4 class="mb-s">
-            Our app offers a beautiful designed, easy-to-use interface that makes managing your book collection a joy.
-        </h4>
-        <button>Sign up</button>
+		<h4 class="mt-l">
+			Create your very own digital library where you can keep track of every book you own, read and
+			love.
+		</h4>
+		<h4 class="mb-s">
+			Our app offers a beautiful designed, easy-to-use interface that makes managing your book
+			collection a joy.
+		</h4>
+		<button>Sign up</button>
 	</div>
-    <img class="hero-imag" src={heroImage} alt="" />
+	<img class="hero-image" src={heroImage} alt="" />
 </section>
+
+<style>
+	.hero {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 100px;
+		margin-bottom: 80px;
+	}
+
+	.hero-image {
+		width: 40%;
+	}
+
+	.hero-text {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		width: 55%;
+		padding-right: 3.3rem;
+	}
+</style>
