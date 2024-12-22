@@ -2,6 +2,10 @@ import { fail, redirect, type Actions } from '@sveltejs/kit';
 
 interface ReturnObject {
 	success: boolean;
+	email: string;
+	password: string;
+	passwordConfirmation: string;
+	name: string;
 	errors: string[];
 }
 
@@ -16,6 +20,10 @@ export const actions: Actions = {
 
 		const returnObject: ReturnObject = {
 			success: true,
+      email,
+      name,
+      password,
+      passwordConfirmation,
 			errors: []
 		};
 
@@ -49,12 +57,12 @@ export const actions: Actions = {
 		});
 
 		if (error || !data.user) {
+      returnObject.success = false;
 			console.log('There has been an error', error);
 			return fail(400);
 		}
 
 		redirect(303, '/private/dashboard');
 
-		return returnObject;
 	}
 };

@@ -2,6 +2,10 @@ import { fail, redirect, type Actions } from '@sveltejs/kit';
 
 interface ReturnObject {
 	success: boolean;
+	email: string;
+	password: string;
+	passwordConfirmation?: never;
+	name?: never;
 	errors: string[];
 }
 
@@ -14,6 +18,8 @@ export const actions: Actions = {
 
 		const returnObject: ReturnObject = {
 			success: true,
+			email,
+			password,
 			errors: []
 		};
 
@@ -24,7 +30,7 @@ export const actions: Actions = {
 		if (password.length < 6) {
 			returnObject.errors.push('Password must be at least 6 characters');
 		}
-        
+
 		if (returnObject.errors.length) {
 			returnObject.success = false;
 			return returnObject;
@@ -32,18 +38,17 @@ export const actions: Actions = {
 
 		// Registration Flow
 
-		const { data, error } = await supabase.auth.signUp({
+		const { data, error } = await supabase.auth.signInWithPassword({
 			email,
 			password
 		});
 
 		if (error || !data.user) {
+      returnObject.success = false;
 			console.log('There has been an error', error);
 			return fail(400);
 		}
 
 		redirect(303, '/private/dashboard');
-
-		return returnObject;
 	}
 };

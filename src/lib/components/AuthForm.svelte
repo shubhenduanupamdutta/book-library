@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { Button } from '$components';
-	import type { ActionData } from '../../routes/register/$types';
+	import type { ActionData as LoginActionData } from '../../routes/login/$types';
+	import type { ActionData as RegisterActionData } from '../../routes/register/$types';
+	type ActionData = RegisterActionData | LoginActionData;
 
 	interface ComponentProps {
 		isRegistration: boolean;
@@ -19,10 +21,10 @@
 				{/each}
 			{/if}
 			{#if isRegistration}
-				<input placeholder="Name" type="text" name="name" />
+				<input placeholder="Name" type="text" name="name" value={form?.password || ''} />
 			{/if}
-			<input placeholder="Email" type="text" name="email" />
-			<input placeholder="Password" type="password" name="password" />
+			<input placeholder="Email" type="text" name="email" value={form?.password || ''} />
+			<input placeholder="Password" type="password" name="password" value={form?.password || ''} />
 			{#if isRegistration}
 				<input placeholder="Confirm Password" type="password" name="passwordConfirmation" />
 			{/if}
