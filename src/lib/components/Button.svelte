@@ -42,6 +42,7 @@
 		class:btn-secondary={isSecondary}
 		class:btn-danger={isDanger}
 		class:btn-menu={isMenu}
+        {onclick}
 	>
 		{@render children()}
 	</button>
