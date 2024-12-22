@@ -53,3 +53,16 @@ redirect(303, '/private/dashboard');
 5. You can go to Home -> Authentication -> Users to see if the user has been created. Currently this only works with the the email you created the instance with, for others you need to enable smtp. For testing and development you can disable the email verification, and then you can use any email to sign up.
 
 6. Create a AuthFlow middleware of Supabase
+
+### Google Auth
+_You can follow [Google Auth](https://supabase.com/docs/guides/auth/social-login/auth-google#configure-your-services-id)_
+- Create a cloud google project
+- Got to API & Services -> OAuth Consent Screen -> Add the email and the Authorized Domain
+- Add Scope
+```sh
+.../auth/userinfo.email
+...auth/userinfo.profile
+openid
+```
+- Create Credentials -> OAuth Client ID -> Web Application -> Add the Authorized Redirect URI
+- Add the client id and the client secret to the Supabase Auth -> Settings -> Social Login -> Google
