@@ -1,6 +1,10 @@
 <script lang="ts">
 	import bookNestLogo from '$assets/app-logo.svg';
 	import { Button } from '$components';
+	import { getUserState } from '$components/state/user-state.svelte';
+
+	let userContext = getUserState();
+	let { user } = $derived(userContext);
 </script>
 
 <header>
@@ -9,12 +13,19 @@
 	</a>
 	<nav>
 		<ul>
-			<li>
-				<Button isMenu={true} href="/register">Create Account</Button>
-			</li>
-			<li>
-				<Button isMenu={true} isSecondary={true} href="/login">Login</Button>
-			</li>
+			{#if !user}
+				<li>
+					<Button isMenu={true} href="/register">Create Account</Button>
+				</li>
+				<li>
+					<Button isMenu={true} isSecondary={true} href="/login">Login</Button>
+				</li>
+			{:else}
+				<li>{user.email}</li>
+				<li>
+					<Button isMenu={true} onclick={() => userContext.logout()}>Logout</Button>
+				</li>
+			{/if}
 		</ul>
 	</nav>
 </header>
@@ -34,5 +45,6 @@
 	ul {
 		display: flex;
 		column-gap: 24px;
+    align-items: center;
 	}
 </style>
