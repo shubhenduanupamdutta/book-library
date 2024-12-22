@@ -50,4 +50,6 @@ if (error || !data.user) {
 
 redirect(303, '/private/dashboard');
 ```
-5. You can go to Home -> Authentication -> Users to see if the user has been created. Currently this only works with the the email you created the instance with, for others you need to enable smtp.
+5. You can go to Home -> Authentication -> Users to see if the user has been created. Currently this only works with the the email you created the instance with, for others you need to enable smtp. For testing and development you can disable the email verification, and then you can use any email to sign up.
+
+6. Create a AuthFlow middleware of Supabase

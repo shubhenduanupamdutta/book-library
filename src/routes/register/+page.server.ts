@@ -1,5 +1,3 @@
-import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_DB_URL } from '$env/static/public';
-import { createClient } from '@supabase/supabase-js';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 
 interface ReturnObject {
@@ -8,7 +6,7 @@ interface ReturnObject {
 }
 
 export const actions: Actions = {
-	default: async ({ request }) => {
+	default: async ({ request, locals: { supabase } }) => {
 		// going to do something with given event
 		const formData = await request.formData();
 		const name = formData.get('name') as string;
@@ -44,19 +42,18 @@ export const actions: Actions = {
 		}
 
 		// Registration Flow
-		const supabase = createClient(PUBLIC_SUPABASE_DB_URL, PUBLIC_SUPABASE_ANON_KEY);
 
-    const {data, error } = await supabase.auth.signUp({
-      email, password
-    })
+		const { data, error } = await supabase.auth.signUp({
+			email,
+			password
+		});
 
-    if (error || !data.user) {
-      console.log("There has been an error", error);
-      return fail(400);
-    } 
+		if (error || !data.user) {
+			console.log('There has been an error', error);
+			return fail(400);
+		}
 
-    redirect(303, '/private/dashboard');
-
+		redirect(303, '/private/dashboard');
 
 		return returnObject;
 	}
